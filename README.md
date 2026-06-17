@@ -1,4 +1,4 @@
-# IEUK-Sector-Skills-Project
+# IEUK Engineering Sector Skills Project
 
 <img src="https://d8qb5cxd9qhkd.cloudfront.net/events/Untitled_design_10_DdDR1D3.jpg"  alt="IEUK 2026">
 
