@@ -34,6 +34,6 @@ From these requirements, I have identified these following outliers
 
 I have also produced graphs to show how these turbines differ from the inlier average
 
-![Turbine Temperature over Time](Figure_1.png)
+![Turbine Temperature over Time](outputs/temperature_outliers.png)
 
-![Turbine Vibrations over Time](Figure_2.png)
+![Turbine Vibrations over Time](outputs/vibration_outliers.png)
