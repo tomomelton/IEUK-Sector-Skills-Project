@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
 
 """
 ###############################################################################
@@ -22,8 +23,10 @@ import matplotlib.pyplot as plt
 PATH            = "telemetry_data.xlsx"
 MAX_AVE_TEMP    = 85 #°c
 MAX_VIB         = 15 #mms⁻¹
+OUTPUT_DIR      = "/app/outputs"
 
-
+# Create outputs directory if it doesn't exist
+os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 # Read in telemetry data as a dataframe
 df = pd.read_excel(PATH)
@@ -78,7 +81,9 @@ plt.ylabel("Temperature (°C)")
 plt.title("Outlier Turbine Temperature Over Time")
 plt.legend(loc="upper left", bbox_to_anchor=(1, 1))
 plt.tight_layout()
-plt.show()
+plt.savefig(f"{OUTPUT_DIR}/temperature_outliers.png", dpi=100, bbox_inches="tight")
+print(f"Saved: {OUTPUT_DIR}/temperature_outliers.png")
+plt.close()
 
 
 
@@ -103,4 +108,6 @@ plt.ylabel("Vibrations (mms⁻¹)")
 plt.title("Outlier Turbine Vibrations Over Time")
 plt.legend(loc="upper left", bbox_to_anchor=(1, 1))
 plt.tight_layout()
-plt.show()
+plt.savefig(f"{OUTPUT_DIR}/vibration_outliers.png", dpi=100, bbox_inches="tight")
+print(f"Saved: {OUTPUT_DIR}/vibration_outliers.png")
+plt.close()
