@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 """
 ###############################################################################
@@ -23,8 +24,15 @@ MAX_AVE_TEMP    = 85 #°c
 MAX_VIB         = 15 #mms⁻¹
 
 
+
 # Read in telemetry data as a dataframe
 df = pd.read_excel(PATH)
+
+
+
+# Convert timestamp into datetime datatype
+df["timestamp"] = pd.to_datetime(df["timestamp"])
+
 
 
 # Find turbines exceesing the maximum average temperature
@@ -33,13 +41,65 @@ tempOutliers = aveTemps[aveTemps["temperature_c"] > MAX_AVE_TEMP]
 tempOutliers = tempOutliers["turbine_id"].to_list()
 
 
+
 # Find turbines exceeding the maximum vibration level
 vibOutliers = df[df["vibration_mm_s"] > MAX_VIB]
 vibOutliers = vibOutliers["turbine_id"].drop_duplicates()
 vibOutliers = vibOutliers.to_list()
 
 
+
 # Display results
 print("Analysis Results:")
 print(f"- Vibrations > {MAX_VIB} mms⁻¹: {vibOutliers}")
 print(f"- Ave Temp > {MAX_AVE_TEMP} °c: {tempOutliers}")
+
+
+
+# Produce graph of temp over time for affected turbines
+plt.figure(figsize=(15, 5)) #Graph dimentions
+
+# Plot affected turbines
+for turbine_id, group in df[df["turbine_id"].isin(tempOutliers)].groupby("turbine_id"):
+    group = group.sort_values("timestamp")
+    plt.plot(group["timestamp"], group["temperature_c"], label=turbine_id)
+
+# Plot threshold line
+plt.axhline(y=MAX_AVE_TEMP, linestyle="--", color="red", label="Average Temperature Threshold")
+
+# Calculate and plot average temp of unaffected turbines
+inlierAveTemps =  df[~df["turbine_id"].isin(tempOutliers)].groupby("timestamp")["temperature_c"].mean()
+plt.plot(inlierAveTemps, label="Average Inlier Temperature")
+
+# Configure graph
+plt.xlabel("Time")
+plt.ylabel("Temperature (°C)")
+plt.title("Outlier Turbine Temperature Over Time")
+plt.legend(loc="upper left", bbox_to_anchor=(1, 1))
+plt.tight_layout()
+plt.show()
+
+
+
+# Produce graph of vibrations over time for affected turbines
+plt.figure(figsize=(15, 5)) #Graph dinentions
+
+# Plot affected turbines
+for turbine_id, group in df[df["turbine_id"].isin(vibOutliers)].groupby("turbine_id"):
+    group = group.sort_values("timestamp")
+    plt.plot(group["timestamp"], group["vibration_mm_s"], label=turbine_id)
+
+# Plot threshold line
+plt.axhline(y=MAX_VIB, linestyle="--", color="red", label="Vibration Threshold")
+
+# Calculate and plot average vibrations of unaffected turbines
+inlierAveVibs =  df[~df["turbine_id"].isin(vibOutliers)].groupby("timestamp")["vibration_mm_s"].mean()
+plt.plot(inlierAveVibs, label="Average Inlier Vibrations")
+
+# Configure graph
+plt.xlabel("Time")
+plt.ylabel("Vibrations (mms⁻¹)")
+plt.title("Outlier Turbine Vibrations Over Time")
+plt.legend(loc="upper left", bbox_to_anchor=(1, 1))
+plt.tight_layout()
+plt.show()
