@@ -37,22 +37,23 @@ df["timestamp"] = pd.to_datetime(df["timestamp"])
 
 # Find turbines exceesing the maximum average temperature
 aveTemps = df.groupby("turbine_id", as_index=False)["temperature_c"].mean()
-tempOutliers = aveTemps[aveTemps["temperature_c"] > MAX_AVE_TEMP]
-tempOutliers = tempOutliers["turbine_id"].to_list()
+tempOutliersGroup = aveTemps[aveTemps["temperature_c"] > MAX_AVE_TEMP]
+tempOutliers = tempOutliersGroup["turbine_id"].to_list()
 
 
 
 # Find turbines exceeding the maximum vibration level
-vibOutliers = df[df["vibration_mm_s"] > MAX_VIB]
-vibOutliers = vibOutliers["turbine_id"].drop_duplicates()
+vibOutliersGroup = df[df["vibration_mm_s"] > MAX_VIB]
+vibOutliersAve = vibOutliersGroup.groupby("turbine_id", as_index=False)["vibration_mm_s"].mean()
+vibOutliers = vibOutliersGroup["turbine_id"].drop_duplicates()
 vibOutliers = vibOutliers.to_list()
 
 
 
 # Display results
 print("Analysis Results:")
-print(f"- Vibrations > {MAX_VIB} mms⁻¹: {vibOutliers}")
-print(f"- Ave Temp > {MAX_AVE_TEMP} °c: {tempOutliers}")
+print(f"- Ave Temp > {MAX_AVE_TEMP} °c: {tempOutliers}, {tempOutliersGroup['temperature_c'].to_list()}")
+print(f"- Vibrations > {MAX_VIB} mms⁻¹: {vibOutliers}, {vibOutliersAve['vibration_mm_s'].to_list()}")
 
 
 
