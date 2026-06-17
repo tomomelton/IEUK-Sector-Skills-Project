@@ -17,13 +17,23 @@ Once the failing machines have been identified, I must design a modern, scalable
 
 ## Analysis
 
-I have identified the following failing turbines
+A turbine requires **urgent maintenance** if:
+- Average Temperature exceeds **85 °c**
+- Vibration levels spike above **15 mms⁻¹**
 
-| Maximum Average Temperature | Turbine Average Temperature | Turbine ID |
-|:---------------------------:|:---------------------------:|:----------:|
-| 85 °c                       | 90.6 °c                     | T-04       |
+From these requirements, I have identified these following outliers
+
+| Turbine ID | Turbine Average Temperature |
+|:----------:|:---------------------------:|
+| T-04       | 90.6 °c                     |
 
 
-| Maximum Vibrations | Turbine Average Vibrations | Turbine ID |
-|:------------------:|:--------------------------:|:----------:|
-| 15 mms⁻¹           | 20.6 mms⁻¹                 | T-07       |
+| Turbine ID | Turbine Average Vibrations |
+|:----------:|:--------------------------:|
+| T-07       | 20.6 mms⁻¹                 |
+
+I have also produced graphs to show how these turbines differ from the inlier average
+
+![Turbine Temperature over Time](Figure_1.png)
+
+![Turbine Vibrations over Time](Figure_2.png)
