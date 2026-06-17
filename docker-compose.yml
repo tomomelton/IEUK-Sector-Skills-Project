@@ -1,0 +1,16 @@
+services:
+  turbine-analysis:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: turbine-analysis
+    volumes:
+      - ./telemetry_data.xlsx:/app/telemetry_data.xlsx:ro
+      - ./outputs:/app/outputs
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: "no"
+
+volumes:
+  outputs:
+    driver: local
