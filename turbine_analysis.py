@@ -12,12 +12,22 @@ import os
    Author      : Tom Melton
    
    Description : Script to identify faulty turbines based on anomalies from
-                 telemetry date
+                 telemetry data
     
    History     : 17/06/2026 - v1.0
    
 ###############################################################################
 """
+
+
+"""
+How to run this file:
+- Have Docker installed
+- In the terminal run 'docker compose up'
+- Outling turbines will be returned to the console
+- Graphs of turbine analytics will be saved to /outputs
+"""
+
 
 # Define constants   
 PATH            = "telemetry_data.xlsx"
