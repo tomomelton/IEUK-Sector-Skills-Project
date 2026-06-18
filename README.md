@@ -30,7 +30,7 @@ A turbine requires **urgent maintenance** if:
 From these requirements, I have identified these following outliers
 
 | Turbine ID | Turbine Average Temperature |
-|:-:|::|
+|:----------:|:---------------------------:|
 | T-04       | 90.6 °c                     |
 
 
