@@ -35,7 +35,7 @@ From these requirements, I have identified these following outliers
 
 
 | Turbine ID | Turbine Average Vibrations |
-|:-:|:--:|
+|:-----:|:-------------------------------:|
 | T-07       | 20.6 mms⁻¹                 |
 
 I have also produced graphs to show how these turbines differ from the inlier average
